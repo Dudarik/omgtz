@@ -1,6 +1,6 @@
 <template>
   <div class="cell-wrapper" :data-id="props.cellValue.id" ref="target">
-    <div class="uno-cell" :class="{ visible_cell: isVisible }">
+    <div class="uno-cell" :class="{ visible_cell: props.cellValue.isVisible }">
       {{ props.cellValue.value }}
     </div>
   </div>
@@ -18,14 +18,12 @@ interface IProps {
 
 const props = defineProps<IProps>();
 const target = ref();
-const isVisible = ref(false);
 
 const cellStore = useCellsStore();
 
 useIntersectionObserver(
   target,
   ([{ isIntersecting }]) => {
-    isVisible.value = isIntersecting;
     cellStore.setCellVisible(props.cellValue.id, isIntersecting);
   },
   { threshold: 1 }

@@ -22,7 +22,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="cellpack-wrapper" ref="observer">
+  <div class="cellpack-wrapper">
     <CellsPack
       v-for="(item, index) in cellsStore.cells"
       :key="index"

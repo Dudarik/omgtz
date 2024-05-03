@@ -27,6 +27,5 @@ const props = defineProps<IProps>();
   grid-auto-columns: $wrapperSize;
 
   gap: 1rem;
-  justify-content: flex-start;
 }
 </style>
