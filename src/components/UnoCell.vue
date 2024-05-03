@@ -1,0 +1,74 @@
+<template>
+  <div class="cell-wrapper" :data-id="props.cellValue.id" ref="target">
+    <div class="uno-cell" :class="{ its: isVisible }">
+      {{ props.cellValue.value }}
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { useIntersectionObserver } from '@vueuse/core';
+import { ICellValue } from '../interfaces';
+import { ref } from 'vue';
+import { useCellsStore } from '../store/useCellsStore';
+
+interface IProps {
+  cellValue: ICellValue;
+}
+
+const props = defineProps<IProps>();
+const target = ref();
+const isVisible = ref(false);
+
+const cellStore = useCellsStore();
+
+useIntersectionObserver(
+  target,
+  ([{ isIntersecting }]) => {
+    isVisible.value = isIntersecting;
+    cellStore.setCellVisible(props.cellValue.id, isIntersecting);
+  },
+  { threshold: 1 }
+);
+</script>
+
+<style scoped lang="scss">
+@import '../styles/const';
+
+@mixin flex-c-c {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.its {
+  border: 1px solid #44bd32 !important ;
+  color: black !important;
+}
+
+.cell-wrapper {
+  @include flex-c-c;
+
+  width: $wrapperSize;
+  height: $wrapperSize;
+
+  &:hover > .uno-cell {
+    width: $cellHoverSize;
+    height: $cellHoverSize;
+  }
+
+  .uno-cell {
+    @include flex-c-c;
+
+    width: $cellSize;
+    height: $cellSize;
+
+    font-size: 2rem;
+
+    border: 1px solid #dcdde1;
+    color: #dcdde1;
+    border-radius: 1rem;
+
+    transition: width $transitionDuration, height $transitionDuration;
+  }
+}
+</style>
