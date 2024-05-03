@@ -2,6 +2,11 @@ import { defineStore } from 'pinia';
 import { computed, ref } from 'vue';
 import { generateRandomElements } from '../helpers';
 
+const getCellRC = (id: string) => {
+  const [row, col] = id.split('-');
+  return [parseInt(row), parseInt(col)];
+};
+
 export const useCellsStore = defineStore('cells', () => {
   const cells = ref(generateRandomElements());
 
@@ -12,17 +17,15 @@ export const useCellsStore = defineStore('cells', () => {
       .map((item) => item.id)
   );
 
-  const getCells = computed(() => cells.value);
-
   function setCellVisible(id: string, isVisible = true) {
-    const [row, col] = id.split('-');
-    cells.value[parseInt(row)][parseInt(col)].isVisible = isVisible;
+    const [row, col] = getCellRC(id);
+    cells.value[row][col].isVisible = isVisible;
   }
 
   function setCellValue(id: string, newValue: string) {
-    const [row, col] = id.split('-');
-    cells.value[parseInt(row)][parseInt(col)].value = newValue;
+    const [row, col] = getCellRC(id);
+    cells.value[row][col].value = newValue;
   }
 
-  return { cells, setCellVisible, setCellValue, getVisibleCellsIds, getCells };
+  return { cells, setCellVisible, setCellValue, getVisibleCellsIds };
 });
