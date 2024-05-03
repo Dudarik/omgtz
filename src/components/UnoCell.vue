@@ -11,6 +11,7 @@ import { useIntersectionObserver } from '@vueuse/core';
 import { ICellValue } from '../interfaces';
 import { ref } from 'vue';
 import { useCellsStore } from '../store/useCellsStore';
+import { PERCENTAGE_OF_VISIBILITY_CELL } from '../config/const';
 
 interface IProps {
   cellValue: ICellValue;
@@ -26,7 +27,7 @@ useIntersectionObserver(
   ([{ isIntersecting }]) => {
     cellStore.setCellVisible(props.cellValue.id, isIntersecting);
   },
-  { threshold: 1 }
+  { threshold: PERCENTAGE_OF_VISIBILITY_CELL }
 );
 </script>
 
@@ -62,7 +63,8 @@ useIntersectionObserver(
     color: #dcdde1;
     border-radius: 1rem;
 
-    transition: width $transitionDuration, height $transitionDuration;
+    transition: width $transitionDuration, height $transitionDuration,
+      color $transitionDuration, border $transitionDuration;
 
     &.visible_cell {
       border: 1px solid #44bd32;
