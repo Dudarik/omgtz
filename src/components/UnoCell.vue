@@ -1,6 +1,6 @@
 <template>
   <div class="cell-wrapper" :data-id="props.cellValue.id" ref="target">
-    <div class="uno-cell" :class="{ its: isVisible }">
+    <div class="uno-cell" :class="{ visible_cell: isVisible }">
       {{ props.cellValue.value }}
     </div>
   </div>
@@ -40,10 +40,6 @@ useIntersectionObserver(
   justify-content: center;
   align-items: center;
 }
-.its {
-  border: 1px solid #44bd32 !important ;
-  color: black !important;
-}
 
 .cell-wrapper {
   @include flex-c-c;
@@ -69,6 +65,11 @@ useIntersectionObserver(
     border-radius: 1rem;
 
     transition: width $transitionDuration, height $transitionDuration;
+
+    &.visible_cell {
+      border: 1px solid #44bd32;
+      color: black;
+    }
   }
 }
 </style>

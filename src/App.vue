@@ -3,21 +3,21 @@ import { onMounted } from 'vue';
 import CellsPack from './components/CellsPack.vue';
 import { useCellsStore } from './store/useCellsStore';
 import { getRandomNumber } from './helpers';
+import { MAX_C_VALUE, MIN_C_VALUE, TIMEOUT_CHANGE_CELL } from './config/const';
 
 const cellsStore = useCellsStore();
 
+const intervalCallback = () => {
+  const updateId = getRandomNumber(0, cellsStore.getVisibleCellsIds.length - 1);
+  const newVal = getRandomNumber(MIN_C_VALUE, MAX_C_VALUE);
+  cellsStore.setCellValue(
+    cellsStore.getVisibleCellsIds[updateId],
+    newVal.toString()
+  );
+};
+
 onMounted(() => {
-  setInterval(() => {
-    const updateId = getRandomNumber(
-      0,
-      cellsStore.getVisibleCellsIds.length - 1
-    );
-    const newVal = getRandomNumber(0, 100);
-    cellsStore.setCellValue(
-      cellsStore.getVisibleCellsIds[updateId],
-      newVal.toString()
-    );
-  }, 1000);
+  setInterval(intervalCallback, TIMEOUT_CHANGE_CELL);
 });
 </script>
 
