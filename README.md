@@ -1,9 +1,16 @@
-# Vue 3 + TypeScript + Vite
+# Vue 3 + TypeScript + Vite + Pinia
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+Тестовое задание для https://omgapp.ru/
 
-## Recommended Setup
+> - Вертикальный список на рандомное количество элементов (больше 100).
+> - В каждом элементе вертикального списка – горизонтальный список на рандомное количество элементов (больше 10). Каждая ячейка – квадратик с бордером и скругленными углами (произвольный радиус), отображающий случайное число. При наведении на квадратик он должен анимированно уменьшаться на 20% (при наведении уменьшаться, при уходе курсора за границы возвращаться к прежним размерам)
+>   Раз в секунду обновляется одно случайное число во всех горизонтальных списках (только в видимой области).
 
-- [VS Code](https://code.visualstudio.com/) + [Vue - Official](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (previously Volar) and disable Vetur
-
-- Use [vue-tsc](https://github.com/vuejs/language-tools/tree/master/packages/tsc) for performing the same type checking from the command line, or for generating d.ts files for SFCs.
+```js
+"scripts": {
+    "dev": "vite",
+    "start": "vite",
+    "build": "vue-tsc && vite build",
+    "preview": "vite preview"
+  }
+```
